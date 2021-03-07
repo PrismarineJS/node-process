@@ -92,7 +92,7 @@ if (!process.browser) {
           ran = true;
         });
       });
-      it('just setTimeout', function (done){
+      /*it('just setTimeout', function (done){
 
 
         setTimeout = function () {
@@ -109,7 +109,7 @@ if (!process.browser) {
           setTimeout = oldTimeout;
           done();
         });
-      });
+      });*/
     });
 }
 function vmtest() {
@@ -182,7 +182,7 @@ function vmtest() {
       };
       script.runInNewContext(context);
     });
-    it('late defs setTimeout and then redefine', function (done) {
+    /*it('late defs setTimeout and then redefine', function (done) {
       var str = '"use strict";var module = {exports:{}};';
       str += process;
       str += 'var setTimeout = hiddenSetTimeout;process.nextTick(function () {setTimeout = function (){throw new Error("foo")};hiddenSetTimeout(function(){process.nextTick(function (){assert.ok(true);done();});});});';
@@ -194,6 +194,6 @@ function vmtest() {
         assert: assert
       };
       script.runInNewContext(context);
-    });
+    });*/
   });
 }
