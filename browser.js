@@ -1,8 +1,26 @@
 // shim for using process in browser
 const process = module.exports = {}
 
+// _nextTick from https://gist.github.com/pthrasher/3105469
+const timeouts = []
+const messageName = 'nextTickPlz'
+
+_nextTick = function(fn) {
+  timeouts.push(fn)
+  window.postMessage(messageName, '*')
+}
+
+window.addEventListener("message", (event) => {
+  if (event && event.source === window && event.data === messageName) {
+    event.stopPropagation()
+    if (timeouts.length > 0) {
+      timeouts.shift()()
+    }
+  }
+}, true)
+
 process.nextTick = function (fun, ...args) {
-  setTimeout(() => { fun(...args) }, 0)
+  _nextTick(() => { fun(...args) }, 0)
 }
 
 process.title = 'browser'
